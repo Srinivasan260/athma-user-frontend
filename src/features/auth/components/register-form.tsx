@@ -1,7 +1,11 @@
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ArrowRight } from 'lucide-react';
-import { registerSchema, type RegisterFormValues } from '../schemas/register.schema';
+import {
+  registerSchema,
+  type RegisterFormInput,
+  type RegisterFormValues,
+} from '../schemas/register.schema';
 import { FormField, SectionTitle } from '@/components/ui/form-field';
 import { Input } from '@/components/ui/input';
 import { Select } from '@/components/ui/select';
@@ -22,7 +26,7 @@ export function RegisterForm({ onSubmit, isSubmitting }: RegisterFormProps) {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<RegisterFormValues>({
+  } = useForm<RegisterFormInput, unknown, RegisterFormValues>({
     resolver: zodResolver(registerSchema),
     defaultValues: { consent: false as unknown as true },
     mode: 'onBlur',

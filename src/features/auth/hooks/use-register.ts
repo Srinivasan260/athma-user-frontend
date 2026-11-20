@@ -5,7 +5,9 @@ import { authApi } from '../api/auth.api';
 function friendlyRegisterError(err: unknown): string {
   if (isAxiosError(err)) {
     if (!err.response) return "We couldn't reach the server. Check your connection and try again.";
-    if (err.response.status === 409) return 'An account with this email already exists.';
+    if (err.response.status === 409) {
+      return err.response.data?.message ?? 'An account with these details already exists.';
+    }
     if (err.response.status === 422) {
       return err.response.data?.message ?? 'Some fields need attention. Please review the form.';
     }
